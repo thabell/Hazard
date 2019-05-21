@@ -1,12 +1,5 @@
-/*
-var link = document.querySelectorAll(".main-header-navigation__user-login");
-console.log("Вывод в консоль");
-link.addEventListener("click", function function_name(argument) {
-	// body...
-})
-element.classList.add("modal-show");
-localStorage.setItem("name", "keks");
-*/
+/*localStorage.setItem("isStorageSupport", true);*/
+
 function cycl_with_Timeout(mseconds, max_count, cycled_function) {
 	var i = 0;
 	function recurs_cycl() {
@@ -30,92 +23,256 @@ function cycl_with_Timeout(mseconds, max_count, cycled_function, args) {
 	}
 	recurs_cycl();
 }
+
+var isStorageSupport = false;
+try {
+	localStorage.setItem("isStorageSupport", true);
+	isStorageSupport = localStorage.getItem("isStorageSupport");
+	console.log("LocalStorage - ", isStorageSupport);
+	console.log(localStorage);
+} catch (error) {
+	console.log("LocalStorage is not supported");
+}
+
+var isLoginDone = false;
+if (isStorageSupport === "true") {
+	isLoginDone = localStorage.getItem("isLoginDone");
+}
+
+var login_from_storage = null; 
+if (isStorageSupport === "true") {
+	if (isLoginDone === "true") {
+		login_from_storage = localStorage.getItem("login");
+	}
+}
+
+var isAdmin = false;
+var isModer = false;
+var isUser = true; /*чек проверяется при отображении объектов ТОЛЬКО для юзеров (типа списка их доков в навигации, рекламы какой-то, ...)*/
+
+/*var navigation__user_itemsList = new Array();
+navigation__user_itemsList[0] = "0";
+navigation__user_itemsList[1] = "1";
+navigation__user_itemsList[2] = "2";*/ /*в этот лист будут обавляться только заголовки и адреса на оценки рисков пользователя (без сгенерированных доков)*/
+/*только в юзере, но не в админе и не в модере*/
+
+/*ВОЗМОЖНО В ЭТИ ЛИСТЫ НУЖНО ВКЛЮЧИТЬ И САМИ ДАННЫЕ ДОКОВ, КОТОРЫЕ БУДУТ ВСТАВЛЯТЬСЯ КУДА НАДО ПРИ ПЕРЕХОДЕ ПО ССЫЛКЕ (типа двумерный массив с соответствующими каждой ячейке данными)*/
+
+/*var user_itemsList = new Array();*/ /*в этот лист добавляются все доки юзера, в том числе сгенерированные и т.п. (название + ссыль)*/
+/* необходимо во всех аккаунтах, поскольку на странице профиля отображаются*/
+
+/*var user_namesList = new Array();*/ /* имена юзеров со ссз */
+var user_itemsList = new Array();
+if (isUser) {
+	if (isStorageSupport === "true") {
+		if (isLoginDone) {
+			user_itemsList = localStorage.getItem("user_itemsList");
+		}
+	}
+}
+var userList = new Array();
+if (isAdmin || isModer) {
+	if (isStorageSupport === "true") {
+		if (isLoginDone) {
+			userList = localStorage.getItem("userList");
+		}
+	}
+}
+var curr_user_itemsList = new Array();
+if (isStorageSupport === "true") {
+	if (isLoginDone) {
+		curr_user_itemsList = localStorage.getItem("curr_user_itemsList");
+	}
+}
+
 /* ------ log in ------ */
 try {
 	var user_login = document.querySelector(".main-header-navigation__user-login");
 	var entrance = document.querySelector(".entrance");
-	var modal_overlay = document.querySelector(".modal-overlay");
-	var entrance__close = entrance.querySelector(".entrance__close");
-	var entrance__form = entrance.querySelector(".entrance__form");
-	var entrance__login = entrance.querySelector(".entrance__login");
-	var entrance__password = entrance.querySelector(".entrance__password");
+	if (isLoginDone !== "true") {
+		var modal_overlay = document.querySelector(".modal-overlay");
+		var entrance__close = entrance.querySelector(".entrance__close");
+		var entrance__form = entrance.querySelector(".entrance__form");
+		var entrance__login = entrance.querySelector(".entrance__login");
+		var entrance__password = entrance.querySelector(".entrance__password");
 
-	var isStorageSupport = true;
-	var login_from_storage = null; 
-	try {
-		login_from_storage = localStorage.getItem("login");
-	} catch (error) {
-		isStorageSupport = false;
-	}
-
-	user_login.addEventListener("click", function function_name(event) {
-		event.preventDefault();
-		entrance.classList.remove("visually-hidden");
-		modal_overlay.classList.remove("visually-hidden");
-		entrance__login.focus();
-		if (login_from_storage) {
-			entrance__login.value = login_from_storage;
-			entrance__password.focus();
-		}
-	});
-	modal_overlay.addEventListener("click", function function_name(event) {
-		event.preventDefault();
-		entrance.classList.add("visually-hidden");
-		modal_overlay.classList.add("visually-hidden");
-	});
-	entrance__close.addEventListener("click", function function_name(event) {
-		event.preventDefault();
-		entrance.classList.add("visually-hidden");
-		modal_overlay.classList.add("visually-hidden");
-	});
-	window.addEventListener("keydown", function function_name(event) {
-		if ((event.key === "Escape") && !entrance.classList.contains("visually-hidden")) {
+		user_login.addEventListener("click", function function_name(event) {
+			event.preventDefault();
+			entrance.classList.remove("visually-hidden");
+			modal_overlay.classList.remove("visually-hidden");
+			entrance__login.focus();
+			if (login_from_storage) {
+				entrance__login.value = login_from_storage;
+				entrance__password.focus();
+			}
+		});
+		modal_overlay.addEventListener("click", function function_name(event) {
 			event.preventDefault();
 			entrance.classList.add("visually-hidden");
 			modal_overlay.classList.add("visually-hidden");
-		}
-	});
-	entrance__login.addEventListener("keydown", function function_name(event) {
-		if (event.key === "Enter") {
+		});
+		entrance__close.addEventListener("click", function function_name(event) {
 			event.preventDefault();
-			entrance__password.focus();
-		}
-	});
-	entrance__form.addEventListener("submit", function function_name(event) {
-		entrance__login.classList.remove("bad-input");
-		entrance__password.classList.remove("bad-input");
-		if (!entrance__password.value) {
+			entrance.classList.add("visually-hidden");
+			modal_overlay.classList.add("visually-hidden");
+		});
+		window.addEventListener("keydown", function function_name(event) {
+			if ((event.key === "Escape") && !entrance.classList.contains("visually-hidden")) {
+				event.preventDefault();
+				entrance.classList.add("visually-hidden");
+				modal_overlay.classList.add("visually-hidden");
+			}
+		});
+		entrance__login.addEventListener("keydown", function function_name(event) {
+			if (event.key === "Enter") {
+				event.preventDefault();
+				entrance__password.focus();
+			}
+		});
+		entrance__form.addEventListener("submit", function function_name(event) {
+			entrance__login.classList.remove("bad-input");
+			entrance__password.classList.remove("bad-input");
+			if (!entrance__password.value) {
+				event.preventDefault();
+				console.log(entrance__password.value);
+				console.log("Введите корректный пароль");
+				entrance__password.classList.add("bad-input");
+				entrance__password.focus();
+			}
+			if (!entrance__login.value) {
+				event.preventDefault();
+				console.log(entrance__login.value);
+				console.log("Введите корректный логин");
+				entrance__login.classList.add("bad-input");
+				entrance__login.focus();
+			}
+			if (entrance__login.value && entrance__password.value && (isStorageSupport === "true")) {
+				localStorage.setItem("login", entrance__login.value);
+				localStorage.setItem("isLoginDone", true);
+				isLoginDone = true;
+				/*user_itemsList = серверная работа, пока что вытаскиваем с userList по логину, если это юзерский;*/
+				/*userList = серверная работа, пока что вытаскиваем с userList по логину, если это юзерский;*/
+				/*if (isUser) { user_itemsList;
+				curr_user_itemsList = user_itemsList; }
+				if (isAdmin || isModer) { userList;
+				curr_user_itemsList = ...; }*/
+				
+			}
+		});
+
+		/* - main-nav log in - */
+		try {
+			var main_nav_user_login = document.querySelector(".main-navigation__user-login");
+			main_nav_user_login.addEventListener("click", function function_name(event) {
+				event.preventDefault();
+				entrance.classList.remove("visually-hidden");
+				modal_overlay.classList.remove("visually-hidden");
+				entrance__login.focus();
+				if (login_from_storage) {
+					entrance__login.value = login_from_storage;
+					entrance__password.focus();
+				}
+			});
+		} catch { console.log("main-nav log in works not"); }
+		/* - /main-nav log in - */
+	} else {
+		/*отдельно работать с окном входа в ордере*/
+		/*подумать, где надо еще отработать*/
+
+		/* - header-user-nav loged in - */
+		/* create loged in elements */
+		var main_header_navigation__user_item_1 = document.createElement('li');
+		main_header_navigation__user_item_1.className = "main-header-navigation__user-item";
+		var new_main_header_navigation__user_logout = document.createElement('a');
+		new_main_header_navigation__user_logout.className = "main-header-navigation__user-logout";
+		new_main_header_navigation__user_logout.href = "#";
+		new_main_header_navigation__user_logout.innerHTML = "Выход";
+		new_main_header_navigation__user_logout.addEventListener("click", function function_name(event) {
 			event.preventDefault();
-			console.log(entrance__password.value);
-			console.log("Введите корректный пароль");
-			entrance__password.classList.add("bad-input");
-			entrance__password.focus();
+			localStorage.setItem("isLoginDone", false);
+			isLoginDone = false;
+			user_itemsList = null;
+			localStorage.setItem("user_itemsList", null);
+			curr_user_itemsList = null;
+			localStorage.setItem("curr_user_itemsList", null);
+			location.reload();
+		});
+				
+		main_header_navigation__user_item_1.appendChild(new_main_header_navigation__user_logout);
+
+		var main_header_navigation__user_item_2 = document.createElement('li');
+		main_header_navigation__user_item_2.className = "main-header-navigation__user-item";
+		var new_main_header_navigation__user_profile = document.createElement('a');
+		new_main_header_navigation__user_profile.href = "user.dirty.html";
+		new_main_header_navigation__user_profile.innerHTML = "Профиль";
+		main_header_navigation__user_item_2.appendChild(new_main_header_navigation__user_profile);
+
+		/*var new_main_header_navigation__user_itemsList = liшки...
+		в navigation (нет у админа с модером) (можно админу с модером потом добавить парсинг с текущего юзера из общего массива)
+    парсится с user_itemsList if (isMainDoc = true) {
+        .innerHTML = .title;
+        .href = .url_to_open;
+        .setAttribute('index', i);
+    }*/
+
+		/* /create loged in elements */
+
+		/* delete loged out elements */
+		var main_header_navigation__user_list = document.querySelector(".main-header-navigation__user-list");
+		main_header_navigation__user_itemsList = main_header_navigation__user_list.querySelectorAll('li');
+		main_header_navigation__user_itemsList = Array.prototype.slice.call(main_header_navigation__user_itemsList);
+		for (var i = 0; i < main_header_navigation__user_itemsList.length; i++) {
+			main_header_navigation__user_list.removeChild(main_header_navigation__user_itemsList[i]);
 		}
-		if (!entrance__login.value) {
-			event.preventDefault();
-			console.log(entrance__login.value);
-			console.log("Введите корректный логин");
-			entrance__login.classList.add("bad-input");
-			entrance__login.focus();
-		}
-		if (entrance__login.value && entrance__password.value && isStorageSupport) {
-			localStorage.setItem("login", entrance__login.value);
-		}
-	});
-	/* main-nav log in */
-	try { var main_nav_user_login = document.querySelector(".main-navigation__user-login");
-		main_nav_user_login.addEventListener("click", function function_name(event) {
-		event.preventDefault();
-		entrance.classList.remove("visually-hidden");
-		modal_overlay.classList.remove("visually-hidden");
-		entrance__login.focus();
-		if (login_from_storage) {
-			entrance__login.value = login_from_storage;
-			entrance__password.focus();
-		}
-	});
-	} catch {}
-	/* /main-nav log in */
+		/* /delete loged out elements */
+
+		/* append loged in elements */
+		/*for (var i = 0; i < new_main_header_navigation__user_itemsList.length; i++) {
+			main_header_navigation__user_list.appendChild(new_main_header_navigation__user_itemsList[i]);
+		}*/ /*(нет у админа с модером) (можно админу с модером потом добавить парсинг с текущего юзера из общего массива)*/
+		main_header_navigation__user_list.appendChild(main_header_navigation__user_item_2);
+		main_header_navigation__user_list.appendChild(main_header_navigation__user_item_1);
+		/* /append loged in elements */
+		/* - /header-user-nav loged in - */
+
+		/* - main-nav loged in - */
+		try {
+			/* create loged in elements */
+			var dup_main_header_navigation__user_item_1 = main_header_navigation__user_item_1.cloneNode(true);
+			dup_main_header_navigation__user_item_1.className = "main-navigation__user-item";
+
+			dup_main_header_navigation__user_item_1.addEventListener("click", function function_name(event) {
+				event.preventDefault();
+				localStorage.setItem("isLoginDone", false);
+				isLoginDone = false;
+				user_itemsList = null;
+				localStorage.setItem("user_itemsList", null);
+				curr_user_itemsList = null;
+				localStorage.setItem("curr_user_itemsList", null);
+				location.reload();
+			});
+
+			var dup_main_header_navigation__user_item_2 = main_header_navigation__user_item_2.cloneNode(true);
+			dup_main_header_navigation__user_item_2.className = "main-navigation__user-item";
+
+			/* /create loged in elements */
+
+			/* delete loged out elements */
+			var main_navigation__user_list = document.querySelector(".main-navigation__user-list");
+			main_navigation__user_itemsList = main_navigation__user_list.querySelectorAll('li');
+			main_navigation__user_itemsList = Array.prototype.slice.call(main_navigation__user_itemsList);
+			for (var i = 0; i < main_navigation__user_itemsList.length; i++) {
+				main_navigation__user_list.removeChild(main_navigation__user_itemsList[i]);
+			}
+			/* /delete loged out elements */
+
+			/* append loged in elements */
+			main_navigation__user_list.appendChild(dup_main_header_navigation__user_item_2);
+			main_navigation__user_list.appendChild(dup_main_header_navigation__user_item_1);
+			/* /append loged in elements */
+		} catch { console.log("main-nav loged in works not"); }
+		/* - /main-nav loged in - */
+	}
 } catch { console.log("Log in works not"); }
 /* ------ /log in ------ */
 
@@ -309,8 +466,6 @@ try {
 	var register__password = register__form.querySelector(".register__password");
 	var register__password_repeat = register__form.querySelector(".register__password-repeat");
 
-	var isStorageSupport = true;
-
 	register__mail.focus();
 
 	register__mail.addEventListener("keydown", function function_name(event) {
@@ -364,12 +519,8 @@ try {
 			register__mail.classList.add("bad-input");
 			register__mail.focus();
 		}
-		if (register__password_repeat.value && register__password.value && register__login.value && register__mail.value) {
-			try {
-				localStorage.setItem("login", register__login.value);
-			} catch (error) {
-				isStorageSupport = false;
-			}
+		if (register__password_repeat.value && register__password.value && register__login.value && register__mail.value && (isStorageSupport === "true")) {
+			localStorage.setItem("login", register__login.value);
 		}
 	});
 
@@ -385,14 +536,6 @@ try {
 	var restore_new_password__form = document.querySelector(".restore-new-password__form");
 	var restore_new_password__password = restore_new_password__form.querySelector(".restore-new-password__password");
 	var restore_new_password__password_repeat = restore_new_password__form.querySelector(".restore-new-password__password-repeat");
-
-	var isStorageSupport = true;
-	var login_from_storage = null; 
-	try {
-		login_from_storage = localStorage.getItem("login");
-	} catch (error) {
-		isStorageSupport = false;
-	}
 
 	var isFromMail = false;
 
@@ -533,7 +676,9 @@ evaluation__full_screenList.forEach(function callback(element, index, array) {
 modal_overlay.addEventListener("click", function function_name(event) {
 	event.preventDefault();
 	modal_overlay.classList.add("visually-hidden");
-	evaluation_with_tools_wrapper.classList.remove("evaluation-with-tools-wrapper--full-screen");
+	try {
+		evaluation_with_tools_wrapper.classList.remove("evaluation-with-tools-wrapper--full-screen");
+	} catch {}
 });
 /* /full-screen */
 
