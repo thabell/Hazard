@@ -87,9 +87,9 @@ if (isStorageSupport === "true") {
 
 /* ------ log in ------ */
 try {
-	var user_login = document.querySelector(".main-header-navigation__user-login");
-	var entrance = document.querySelector(".entrance");
-	if (isLoginDone !== "true") {
+	function setEventLogIn() {
+		var user_login = document.querySelector(".main-header-navigation__user-login");
+		var entrance = document.querySelector(".entrance");
 		var modal_overlay = document.querySelector(".modal-overlay");
 		var entrance__close = entrance.querySelector(".entrance__close");
 		var entrance__form = entrance.querySelector(".entrance__form");
@@ -175,7 +175,9 @@ try {
 			});
 		} catch { console.log("main-nav log in works not"); }
 		/* - /main-nav log in - */
-	} else {
+	}
+
+	function changeUserMenuLogedIn() {
 		/*отдельно работать с окном входа в ордере*/
 		/*подумать, где надо еще отработать*/
 
@@ -254,6 +256,9 @@ try {
 
 			var dup_main_header_navigation__user_item_2 = main_header_navigation__user_item_2.cloneNode(true);
 			dup_main_header_navigation__user_item_2.className = "main-navigation__user-item";
+			if (location.href.search(/user.dirty.html/) > 0) {
+				dup_main_header_navigation__user_item_2.classList.add("main-navigation__user-item--current");
+			}
 
 			/* /create loged in elements */
 
@@ -272,6 +277,13 @@ try {
 			/* /append loged in elements */
 		} catch { console.log("main-nav loged in works not"); }
 		/* - /main-nav loged in - */
+	}
+
+
+	if (isLoginDone !== "true") {
+		setEventLogIn();
+	} else {
+		changeUserMenuLogedIn();
 	}
 } catch { console.log("Log in works not"); }
 /* ------ /log in ------ */
