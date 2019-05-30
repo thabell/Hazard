@@ -898,24 +898,28 @@ input.register__item {
 .register__password {
     background-image: url("img/entrance__password.png");
 }
-.register__message {
+/*.register__message {
     margin: 30px;
+}*/
+.register-from-mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.register-from-mail__submit {
+    text-decoration: none;
+} 
 /* - - - /register - - - */
 
 /* - - - restore - - - */
-.restore .restore__new-password {
-    display: none;
-}
-.restore.isFromMail .restore__new-password {
-    display: block;
-}
-.restore.isFromMail .restore__letter {
-    display: none;
+.restore__letter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .restore-letter__form {
     display: flex;
-    flex-direction: column; /* тут мб сделать такое: присваивать класс родительскому блоку определенный и по этому классу селектор и внутри див определенный дисплэй нон. м.б. также сделать и с проверкой оплаты и с проверкой входа*/
+    flex-direction: column;
     align-items: center;
 }
 input.restore-letter__item {
@@ -931,6 +935,19 @@ input.restore-letter__item {
 }
 .restore-letter__message {
     margin: 30px;
+}
+.restore__from-mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.restore-from-mail__submit {
+    text-decoration: none;
+}
+.restore__new-password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .restore-new-password__form {
     display: flex;
@@ -948,9 +965,6 @@ input.restore-new-password__item {
 .restore-new-password__password,
 .restore-new-password__password-repeat {
     background-image: url("img/entrance__password.png");
-}
-.restore-new-password__message {
-    margin: 30px;
 }
 /* - - - /restore - - - */
 

@@ -161,11 +161,21 @@
 					<input class="restore-letter__item restore-letter__mail" id="restore-letter__mail" type="text" name="restore-letter__mail" placeholder="адрес электронной почты или логин">
 
 	                <button class="restore-letter__submit button" type="submit">Сбросить пароль</button>
-
-	                <p class="restore-letter__message">На адрес вашей электронной почты отправлено письмо для сброса пароля</p>
+	                
+	                <p class="restore-letter__message-wrong visually-hidden">Не зарегистрирован аккаунт по этому адресу электронной почты</p>
 	            </form>
 	        </section>
-			<!--при переходе на страницу если запрос пришел с пометкой new-password, то этот слайд-->
+
+	        <section class="restore__from-mail">
+				<div class="inline-h2-and-annotation-wrapper 
+				inline-h2-and-annotation-wrapper--shortened">
+					<h2>Сброс пароля</h2>
+					<p class="h2-annotation">Подтвердите сброс пароля<br><small>В режиме работы локального инструмента верификация осуществляется непосредственно здесь</small></p>
+				</div>
+				<!-- <p class="restore__message">На адрес Вашей электронной почты выслано письмо для активации аккаунта</p> -->
+				<button class="button restore-from-mail__submit" type="button">Подтвердить сброс</button>
+			</section>
+
 			<section class="restore__new-password">
 				<div class="inline-h2-and-annotation-wrapper 
 				inline-h2-and-annotation-wrapper--shortened">
@@ -180,8 +190,6 @@
 	                <input class="restore-new-password__item restore-new-password__password-repeat" id="restore-new-password__password-repeat" type="password" name="restore-new-password__password-repeat" placeholder="повторите пароль"><!--без глазика для безопасности-->
 
 	                <button class="restore-new-password__submit button" type="submit">ОК</button>
-	                <!--по клику сообщение пароли не совпадают или пароль изменен и перенаправление на главную-->
-	                <p class="restore-new-password__message"></p><!--Пароль изменен-->
 	            </form>
 			</section>
 
@@ -279,6 +287,7 @@
 		<button class="entrance__close" type="button"><span class="visually-hidden">Закрыть</span></button>
 	</section>
 	<div class="modal-overlay visually-hidden"></div>
+		<script src="unit.dirty.js"></script>
 		<script src="script.dirty.js"></script>
 </body>
 </html>

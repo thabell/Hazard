@@ -148,31 +148,50 @@
 
 		</div>
 
-		<main class="main-inner-content-wrapper register">
-			<div class="inline-h2-and-annotation-wrapper 
-			inline-h2-and-annotation-wrapper--shortened">
-				<h2>Новый аккаунт</h2>
-				<p class="h2-annotation">Введите Ваши данные<br><small>Все поля являются обязательными для заполнения</small></p>
+		<main class="main-inner-content-wrapper">
+			<div class="register">
+				<div class="inline-h2-and-annotation-wrapper 
+				inline-h2-and-annotation-wrapper--shortened">
+					<h2>Новый аккаунт</h2>
+					<p class="h2-annotation">Введите Ваши данные<br><small>Поля "почта", "логин" и "пароль" являются обязательными для заполнения</small></p>
+				</div>
+	            <form class="register__form" action="#" method="post"> <!--action="https://echo.dirty.htmlacademy.ru"-->
+					<label class="visually-hidden register__item" for="register__mail">адрес электронной почты</label>
+					<input class="register__item register__mail" id="register__mail" type="text" name="mail" placeholder="адрес электронной почты">
+
+	                <label class="visually-hidden register__item" for="register__login">логин</label>
+	                <input class="register__item register__login" id="register__login" type="text" name="login" placeholder="логин">
+
+	                <label class="visually-hidden register__item" for="register__password">пароль</label>
+	                <input class="register__item register__password" id="register__password" type="password" name="password" placeholder="пароль"><!--без глазика для безопасности-->
+
+	                <label class="visually-hidden register__item" for="register__password-repeat">пароль</label>
+	                <input class="register__item register__password register__password-repeat" id="register__password-repeat" type="password" name="password" placeholder="повторите пароль"><!--без глазика для безопасности-->
+
+	                <label class="visually-hidden register__item" for="register__surname">фамилия</label>
+	                <input class="register__item register__surname" id="register__surname" type="text" name="surname" placeholder="фамилия">
+
+	                <label class="visually-hidden register__item" for="register__name">имя</label>
+	                <input class="register__item register__name" id="register__name" type="text" name="name" placeholder="имя">
+
+	                <label class="visually-hidden register__item" for="register__firstname">отчество</label>
+	                <input class="register__item register__firstname" id="register__firstname" type="text" name="firstname" placeholder="отчество">
+
+	                <button class="register__submit button" type="submit">Зарегистрироваться</button>
+
+	            </form>
+	        </div>
+
+			<div class="register-from-mail visually-hidden">
+				<div class="inline-h2-and-annotation-wrapper 
+				inline-h2-and-annotation-wrapper--shortened">
+					<h2>Новый аккаунт</h2>
+					<p class="h2-annotation">Подтвердите Ваши данные<br><small>В режиме работы локального инструмента верификация осуществляется непосредственно здесь</small></p>
+				</div>
+				<!-- <p class="register__message">На адрес Вашей электронной почты выслано письмо для активации аккаунта</p> -->
+				<a class="button register-from-mail__submit" href="index.dirty.html">Подтвердить данные</a>
 			</div>
-            <form class="register__form" action="#" method="post"> <!--action="https://echo.dirty.htmlacademy.ru"-->
-				<label class="visually-hidden register__item" for="register__mail">адрес электронной почты</label>
-				<input class="register__item register__mail" id="register__mail" type="text" name="mail" placeholder="адрес электронной почты">
-
-                <label class="visually-hidden register__item" for="register__login">логин</label>
-                <input class="register__item register__login" id="register__login" type="text" name="login" placeholder="логин">
-
-                <label class="visually-hidden register__item" for="register__password">пароль</label>
-                <input class="register__item register__password" id="register__password" type="password" name="password" placeholder="пароль"><!--без глазика для безопасности-->
-
-                <label class="visually-hidden register__item" for="register__password-repeat">пароль</label>
-                <input class="register__item register__password register__password-repeat" id="register__password-repeat" type="password" name="password" placeholder="повторите пароль"><!--без глазика для безопасности-->
-
-                <button class="register__submit button" type="submit">Зарегистрироваться</button>
-
-                <p class="register__message"></p><!--На Ваш адрес электронной почты выслано письмо для активации аккаунта-->
-            </form>
 		</main>
-
 	</div>
 
 	<section class="order with-pseudo-wide-line">
@@ -265,6 +284,7 @@
 		<button class="entrance__close" type="button"><span class="visually-hidden">Закрыть</span></button>
 	</section>
 	<div class="modal-overlay visually-hidden"></div>
+		<script src="unit.dirty.js"></script>
 		<script src="script.dirty.js"></script>
 </body>
 </html>
