@@ -108,7 +108,7 @@ th, td {
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
 th {
-    /*background: #b0e0e6;*/
+    background-color: rgba(78, 96, 114, 0.2); /*#4e6072;*/ /*#b0e0e6;*/
 }
 /* --------- /global --------- */
 
@@ -279,11 +279,12 @@ input[type="radio"].visually-hidden {
     line-height: 25px;
     font-weight: 700;
     text-transform: uppercase;
+    margin: 10px 0;
 }
 .custom-margin-10 {
     margin: 10px;
 }
-.text-decoration-none {
+.text-decoration-none { /*ЭТО ГДЕ ВООБЩЕ ПРИМЕНЕНО?*/
     text-decoration: none;
 }
 .custom-checkbox__title,
@@ -565,21 +566,21 @@ input[type="radio"].visually-hidden {
 .main-header-navigation__user-list {
     list-style: none;
 
-    font-size: 0px;
-    line-height: 0px;
+    font-size: 20px;
+    line-height: 25px;
 
     margin: 0 0 15px 0;
     padding: 0;
 }
-.main-header-navigation__site-item,
-.main-header-navigation__user-item {
+.main-header-navigation__site-list > *,
+.main-header-navigation__user-list > * {
     display: inline-block;
     font-size: 20px;
     line-height: 25px;
     padding-bottom: 10px;
 }
-.main-header-navigation__site-item:not(:first-child)::before,
-.main-header-navigation__user-item:not(:first-child)::before {
+.main-header-navigation__site-list > *:not(:first-child)::before,
+.main-header-navigation__user-list > *:not(:first-child)::before {
     content: "\\\\";
     margin: 0 20px 0 25px;
 }
@@ -604,6 +605,19 @@ input[type="radio"].visually-hidden {
 .main-header-navigation-item__search-icon:focus,
 .main-header-navigation-item__search-icon:active {
     background-image: url("img/search--hover.png");
+}
+.main-header-navigation-item__map-icon {
+    display: inline-block;
+    background-image: url("img/map.png");
+    background-position: top center;
+    background-repeat: no-repeat;
+    width: 19px;
+    height: 19px;
+}
+.main-header-navigation-item__map-icon:hover,
+.main-header-navigation-item__map-icon:focus,
+.main-header-navigation-item__map-icon:active {
+    background-image: url("img/map--hover.png");
 }
 .advantages {
     text-transform: uppercase;
@@ -1226,6 +1240,7 @@ input[type="radio"].visually-hidden {
     min-height: 671px;
 
     top: 200px;
+    left: calc((100% - 460px) / 2);
 
     background-color: #ffffff;
     box-shadow: 0 20px 70px;

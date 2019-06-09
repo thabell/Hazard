@@ -25,27 +25,21 @@
 .main-navigation__user-list {
     list-style: none;
 
-    font-size: 0px;
-    line-height: 0px;
+    font-size: 20px;
+    line-height: 25px;
 
     margin: 0 0 15px 0;
     padding: 0;
 }
-.main-navigation__site-item,
-.main-navigation__user-item {
+.main-navigation__site-list > *,
+.main-navigation__user-list > * {
     display: inline-block;
-    font-size: 20px;
-    line-height: 25px;
     padding-bottom: 10px;
 }
-.main-navigation__site-item:not(:first-child)::before,
-.main-navigation__user-item:not(:first-child)::before {
+.main-navigation__site-list > *:not(:first-child)::before,
+.main-navigation__user-list > *:not(:first-child)::before {
     content: "\\\\";
     margin: 0 20px 0 25px;
-}
-.main-navigation__site-item--current a,
-.main-navigation__user-item--current a {
-    color: #f39c12 !important;
 }
 .main-navigation a {
     text-decoration: none;
@@ -54,6 +48,10 @@
 .main-navigation a:hover,
 .main-navigation a:focus,
 .main-navigation a:active {
+    color: #f39c12;
+}
+.main-navigation__site-list > *.current a, /*при желании можно реализовать простым добавлением класса*/
+.main-navigation__user-list > *.current a {
     color: #f39c12;
 }
 .news--narrow {
@@ -423,6 +421,11 @@ window.getSelection().collapse(this.firstChild, s.length);
 }
 .evaluation__table th {
     text-align: center;
+}
+.evaluation__table th:first-child,
+.evaluation__table td:first-child {
+    background-color: transparent;
+    border: none;
 }
 .custom-th-td-content-wrapper.td-with-editing-conteiner-at-the-row {
     transition: all 0.3s ease-in-out !important;
@@ -1243,6 +1246,11 @@ input.restore-new-password__item {
 }
 /* - - - /order - - - */
 
+/* - - - map - - - */
+.map-of-site a {
+    text-decoration: none;
+}
+/* - - - /map - - - */
 /*!!!!!!сделать свой список на дивах!!!!!!!*/
 /*если текст не влазит он не отображался, но в конце текста появлялось троеточие
 overflow: hidden;

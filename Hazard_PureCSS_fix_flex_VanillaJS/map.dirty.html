@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Hazard - Платформы</title>
+	<title>Hazard - Карта сайта</title>
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic" rel="stylesheet">
 	<link href="normalize.dirty.css" rel="stylesheet">
 	<link href="style.dirty.css" rel="stylesheet">
@@ -35,13 +35,13 @@
 						<a href="about.dirty.html">О нас</a>
 					</li>
 					<li class="main-header-navigation__site-item">
-						<a>Скачать приложение</a>
+						<a href="download.dirty.html">Скачать приложение</a>
 					</li>
 					<li class="main-header-navigation__site-item">
 						<a class="main-header-navigation-item__search-icon disabled" href="#" title="Поиск по сайту"><span class="visually-hidden">Поиск по сайту</span></a>
 					</li>
 					<li class="main-header-navigation__site-item">
-						<a class="main-header-navigation-item__map-icon" href="map.dirty.html" title="Карта сайта"><span class="visually-hidden">Карта сайта</span></a>
+						<a class="main-header-navigation-item__map-icon" title="Карта сайта"><span class="visually-hidden">Карта сайта</span></a>
 					</li>
 				</ul>
 				<ul class="main-header-navigation__user-list">
@@ -55,7 +55,7 @@
 			</nav>
 		</header>
 
-		<h1><strong>Платформы</strong><br>все доступные дистрибутивы</h1>
+		<h1><strong>Карта сайта</strong></h1>
 	</div>
 
 	<nav class="main-navigation main-navigation--closed">
@@ -76,11 +76,11 @@
 			<li class="main-navigation__site-item">
 				<a class="disabled" href="#">Новости</a>
 			</li>
-			<li class="main-navigation__site-item">
+			<li class="main-navigation__site-item main-navigation__site-item--current">
 				<a href="about.dirty.html">О нас</a>
 			</li>
-			<li class="main-navigation__site-item main-navigation__site-item--current">
-				<a>Скачать приложение</a>
+			<li class="main-navigation__site-item">
+				<a href="download.dirty.html">Скачать приложение</a>
 			</li>
 			<li class="main-navigation__site-item">
 				<a class="disabled" href="#">Поиск по сайту</a>
@@ -114,7 +114,7 @@
 					</a>
 					<button class="button-next" type="button"><span class="visually-hidden">Предыдущий</span></button>
 				</div>
-				<div class="news__pagination news__pagination--narrow">
+				<div class="pagination news__pagination">
 					<button class="pagination__item pagination__item--active" type="button"><span class="visually-hidden">1</span></button>
 					<button class="pagination__item" type="button"><span class="visually-hidden">2</span></button>
 					<button class="pagination__item" type="button"><span class="visually-hidden">3</span></button>
@@ -123,98 +123,148 @@
 				<a class="button white-button disabled" href="#">Все новости</a>
 			</section>
 
-		</div>
-
-		<main class="main-inner-content-wrapper download">
-			<div class="inline-h2-and-annotation-wrapper 
-			inline-h2-and-annotation-wrapper--shortened">
-				<h2>Скачать приложение</h2>
-				<p class="h2-annotation">Мы доступны для Вас всегда и везде!<br><small>Ниже представлены дистрибутивы для различных платформ</small></p>
-			</div><!--в мобилке список из двух колонок-->
-			<ul class="download__list">
-				<li class="download__item">
-					<a href="#" class="downloads__item-link downloads__windows">
+			<section class="downloads downloads--narrow slider"> <!--в мобилке список из двух колонок-->
+				<div class="incolumn-h2-and-annotation-wrapper">
+					<h2 class="downloads__title downloads__title--narrow">Скачать приложение</h2> <!--типа так надо везде оформить?-->
+					<p class="downloads__message downloads__message--narrow h2-annotation">Мы доступны для Вас всегда и везде!<br>Скачайте наше приложение!</p>
+				</div>
+				<div class="downloads-content-with-side-buttons-wrapper--narrow">
+					<button class="button-previous" type="button"><span class="visually-hidden">Следующий</span></button>
+					<a href="#" class="downloads__item-link downloads__item-link--narrow downloads__windows slider__item slider__item--active">
 						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>Windows х64</h3>
+							<h3>Windows</h3>
 						</div>
 					</a>
-				</li>
-				<li class="download__item">
-					<a href="#" class="downloads__item-link downloads__windows">
+					<a href="#" class="downloads__item-link downloads__item-link--narrow downloads__linux slider__item">
 						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>Windows х32</h3>
+							<h3>Linux</h3>
 						</div>
 					</a>
-				</li>
-				<li class="download__item">
-					<a href="#" class="downloads__item-link downloads__linux">
+					<a href="#" class="downloads__item-link downloads__item-link--narrow downloads__macos slider__item">
 						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>Linux x64</h3>
+							<h3>MacOS</h3>
 						</div>
 					</a>
-				</li>
-				<li class="download__item">
-					<a href="#" class="downloads__item-link downloads__linux">
-						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>Linux x32</h3>
-						</div>
-					</a>
-				</li>
-				<li class="download__item">
-					<a href="#" class="downloads__item-link downloads__macos">
-						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>MacOS x64</h3>
-						</div>
-					</a>
-				</li>
-				<li class="download__item">
-					<a href="#" class="downloads__item-link downloads__macos">
-						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>MacOS x32</h3>
-						</div>
-					</a>
-				</li>
-				<li class="download__item disabled">
-					<a href="#" class="downloads__item-link downloads__android">
+					<a href="#" class="downloads__item-link downloads__item-link--narrow downloads__android disabled slider__item">
 						<div class="incolumn-h3-and-annotation-wrapper">
 							<h3>Android</h3>
 						</div>
 					</a>
-				</li>
-				<li class="download__item disabled">
-					<a href="#" class="downloads__item-link downloads__google-play">
+					<a href="#" class="downloads__item-link downloads__item-link--narrow downloads__google-play disabled slider__item">
 						<div class="incolumn-h3-and-annotation-wrapper">
 							<h3>Google Play</h3>
 						</div>
 					</a>
-				</li>
-				<li class="download__item disabled">
-					<a href="#" class="downloads__item-link downloads__app-store">
+					<a href="#" class="downloads__item-link downloads__item-link--narrow downloads__app-store disabled slider__item">
 						<div class="incolumn-h3-and-annotation-wrapper">
 							<h3>App Store</h3>
 						</div>
 					</a>
-				</li>
-				<li class="download__item disabled">
-					<a href="#" class="downloads__item-link downloads__app-store-flyme">
-						<div class="incolumn-h3-and-annotation-wrapper">
-							<h3>App Store<br>Flyme (Meizu)</h3>
-						</div>
-					</a>
+					<button class="button-next" type="button"><span class="visually-hidden">Предыдущий</span></button>
+				</div>
+				<div class="pagination">
+					<button class="pagination__item pagination__item--active" type="button"><span class="visually-hidden">1</span></button>
+					<button class="pagination__item" type="button"><span class="visually-hidden">2</span></button>
+					<button class="pagination__item" type="button"><span class="visually-hidden">3</span></button>
+					<button class="pagination__item" type="button"><span class="visually-hidden">4</span></button>
+					<button class="pagination__item" type="button"><span class="visually-hidden">5</span></button>
+					<button class="pagination__item" type="button"><span class="visually-hidden">6</span></button>
+				</div>
+				<a class="button downloads__all" href="download.dirty.html">Все платформы</a>
+			</section>
+
+		</div>
+
+		<main class="main-inner-content-wrapper map-of-site">
+			<div class="inline-h2-and-annotation-wrapper inline-h2-and-annotation-wrapper--shortened">
+				<h2>Карта сайта сервиса Hazard</h2>
+				<p class="h2-annotation">Может быть использована в качестве дополнительного инструмента навигации по страницам приложения</p>
+			</div>
+
+			<ul class="map-of-site__list">
+				<li class="custom-li map-of-site__item">
+					<a href="index.dirty.html">Главная</a>
+					<ul>
+						<li class="custom-li map-of-site__item">
+							Навигация по сайту
+							<ul>
+								<li class="custom-li map-of-site__item">
+									<a class="disabled" href="#">Нормативные документы</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a class="disabled" href="#">Литература</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a href="order.dirty.html">Оценка рисков для Вас</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a class="disabled" href="#">Новости</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a href="about.dirty.html">О нас</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a href="download.dirty.html">Скачать приложение</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a class="disabled" href="#">Поиск по сайту</a>
+								</li>
+								<li class="custom-li map-of-site__item">
+									<a>Карта сайта</a>
+								</li>
+							</ul>
+						</li>
+						<li class="custom-li map-of-site__item">
+							Пользовательская навигация
+							<ul class="user_nav">
+								<li class="custom-li map-of-site__item user_login_but user_nav__item">
+									<a class="main-header-navigation__user-login" href="#">Вход</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</li>
 			</ul>
+			<ul class="main-header-navigation__site-list">
 		</main>
 
 	</div>
 
-	<section class="order with-pseudo-wide-line">
+	<section class="contacts">
+		<div class="incolumn-h2-and-annotation-wrapper">
+			<h2 class="contacts__info-title">Контактная информация</h2>
+		</div>
+		<ul class="contacts__info-list">
+			<li class="contacts__info-item contacts__tel">+7 (812) 666-02-66</li>
+			<li class="contacts__info-item contacts__mail">contact@hazard.ru</li>
+			<li>
+				<a href="about.dirty.html" class="contacts__info-item-link contacts__about">о нас</a>
+			</li>
+		</ul>
+		
+		<div class="incolumn-h2-and-annotation-wrapper disabled">
+			<h2 class="contacts__social-title">Наши соцсети</h2>
+		</div>
+		<ul class="contacts__social-list disabled">
+			<li class="contacts__social-item">
+				<a class="contacts__social-item-link contacts__vk" href="#" title="Вконтакте"><span class="visually-hidden"><Вконтакте</span></a>
+			</li>
+			<li class="contacts__social-item">
+				<a class="contacts__social-item-link contacts__fb" href="#" title="Facebook"><span class="visually-hidden">Facebook</span></a>
+			</li>
+			<li class="contacts__social-item">
+				<a class="contacts__social-item-link contacts__inst" href="#" title="Instagram"><span class="visually-hidden">Instagram</span></a>
+			</li>
+		</ul>
+	</section>
+
+	<section class="order">
 		<div class="inline-h2-and-annotation-wrapper">
 			<h2>Заказ</h2>
 			<p class="h2-annotation">Вам необходимо провести оценку рисков?<br>Доверьте это надежной компании!</p>
 		</div>
 		<a class="button" href="order.dirty.html">Оценка рисков для Вас</a>
 	</section>
-
 
 	<section class="comment with-pseudo-wide-line disabled">
 		<div class="inline-h2-and-annotation-wrapper">
@@ -297,6 +347,10 @@
 		<button class="entrance__close" type="button"><span class="visually-hidden">Закрыть</span></button>
 	</section>
 	<div class="modal-overlay visually-hidden"></div>
+	<!--слайдеры возможно сделать на плагине, но тогда: стрелки ниже, стилизация стрелок, пагинатор выше, стилизация пагинатора, несколько слайдеров на одной странице-->
+	<!--через автопрефикс прогнать-->
+	<!--заинлайнить svg-->
+
 	<script src="unit.dirty.js"></script>
 	<script src="script.dirty.js"></script>
 </body>

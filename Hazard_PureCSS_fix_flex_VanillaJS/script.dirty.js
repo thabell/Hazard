@@ -1,14 +1,23 @@
-function cycl_with_Timeout(mseconds, max_count, cycled_function) {
-	var i = 0;
-	function recurs_cycl() {
-		cycled_function();
-		setTimeout(function() {
-			i++;
-			if (i < max_count) { recurs_cycl(); }
-		}, mseconds);
-	}
-	recurs_cycl();
+/*window.addEventListener("keydown", function function_name(event) {
+  if (event.ctrlKey && event.shiftKey && (event.keyCode == 73)) {
+    console.log("check");
+  mainWindow.webContents.openDevTools();
 }
+});
+*/
+/*document.body.style.zoom = 1.0;
+window.addEventListener("keydown", function function_name(event) {
+	if (event.ctrlKey && (event.keyCode === 107)) {
+	    console.log("check");
+	  	document.body.style.zoom = parseFloat(document.body.style.zoom) + 0.1;
+	}
+});
+window.addEventListener("keydown", function function_name(event) {
+	if (event.ctrlKey && (event.keyCode === 109)) {
+	    console.log("check");
+	  	document.body.style.zoom = parseFloat(document.body.style.zoom) - 0.1;
+	}
+});*/
 
 function cycl_with_Timeout(mseconds, max_count, cycled_function, args) {
 	var i = 0;
@@ -23,9 +32,8 @@ function cycl_with_Timeout(mseconds, max_count, cycled_function, args) {
 }
 
 /* ------ log in ------ */
-try {
+/*try {*/
 	function setEventLogIn() {
-		var user_login = document.querySelector(".main-header-navigation__user-login");
 		var entrance = document.querySelector(".entrance");
 		var modal_overlay = document.querySelector(".modal-overlay");
 		var entrance__close = entrance.querySelector(".entrance__close");
@@ -33,12 +41,17 @@ try {
 		var entrance__login = entrance.querySelector(".entrance__login");
 		var entrance__password = entrance.querySelector(".entrance__password");
 
-		user_login.addEventListener("click", function function_name(event) {
-			event.preventDefault();
-			entrance.classList.remove("visually-hidden");
-			modal_overlay.classList.remove("visually-hidden");
-			entrance__login.focus();
+		document.querySelectorAll(".user_login_but").forEach(function callback(element, index, array) {
+			try {
+				element.addEventListener("click", function function_name(event) {
+					event.preventDefault();
+					entrance.classList.remove("visually-hidden");
+					modal_overlay.classList.remove("visually-hidden");
+					entrance__login.focus();
+				});
+			} catch (error) {}
 		});
+
 		modal_overlay.addEventListener("click", function function_name(event) {
 			event.preventDefault();
 			entrance.classList.add("visually-hidden");
@@ -81,10 +94,10 @@ try {
 			}
 			if (entrance__login.value && entrance__password.value) {
 				event.preventDefault();
-				if (Server.prototype.logInCurrUnit(entrance__login.value, entrance__password.value) === "success") {
-					console.log("success");
-					setTimeout(function() {location.reload();}, 2000); }
-				else {
+				try {
+					Server.prototype.logInCurrUnit(entrance__login.value, entrance__password.value);
+				} catch (error) {
+					console.log(error);
 					console.log("Вход не выполнен");
 					entrance__password.classList.add("bad-input");
 					entrance__login.classList.add("bad-input");
@@ -93,95 +106,91 @@ try {
 			}
 		});
 
-		/* - main-nav log in - */
-		try {
-			var main_nav_user_login = document.querySelector(".main-navigation__user-login");
-			main_nav_user_login.addEventListener("click", function function_name(event) {
-				event.preventDefault();
-				entrance.classList.remove("visually-hidden");
-				modal_overlay.classList.remove("visually-hidden");
-				entrance__login.focus();
-			});
-		} catch {}
-		/* - /main-nav log in - */
 	}
 
 	function changeUserMenuLogedIn() {
-		/*отдельно работать с окном входа в ордере*/
-		/*подумать, где надо еще отработать*/
-
-		/* - header-user-nav loged in - */
 		/* create loged in elements */
-		var main_header_navigation__user_item_1 = document.createElement('li');
-		main_header_navigation__user_item_1.className = "main-header-navigation__user-item";
-		var new_main_header_navigation__user_logout = document.createElement('a');
-		new_main_header_navigation__user_logout.className = "main-header-navigation__user-logout";
-		new_main_header_navigation__user_logout.href = "#";
-		new_main_header_navigation__user_logout.innerHTML = "Выход";
-		new_main_header_navigation__user_logout.addEventListener("click", function function_name(event) {
-			event.preventDefault();
-			myLocalStorage.prototype.logOut();
+		var new_elementsList = new Array();
+
+		var new_navigation__user_logout = document.createElement('a');
+		new_navigation__user_logout.className = "user_logout_but";
+		new_navigation__user_logout.href = "#";
+		new_navigation__user_logout.innerHTML = "Выход";
+		new_elementsList.push(new_navigation__user_logout);
+
+		var new_navigation__user_profile = document.createElement('a');
+		new_navigation__user_profile.href = "user.dirty.html";
+		new_navigation__user_profile.innerHTML = "Профиль (" + loged_in_user.getLogin() + ")";
+		new_elementsList.push(new_navigation__user_profile);
+
+		/*viewing_user.setDocList(
+			new Array(new Doc(true, "doc_title1", "user-doc-main.dirty.html", "doc_org_name1", viewing_user.getId()), new Doc(false, "doc_title2", "doc_url_to_open2", "doc_org_name2", viewing_user.getId()), new Doc(true, "doc_title3", "user-doc-main.dirty.html", "doc_org_name3", viewing_user.getId()))
+		);
+		myLocalStorage.prototype.synchronizeAllData(viewing_user);
+		there_is_unsynchronized_data_on_local = true;
+		localStorage.setItem("there_is_unsynchronized_data_on_local", there_is_unsynchronized_data_on_local);
+		Server.prototype.synchronizeAllData(viewing_user);*/
+
+		try {
+			var view_doc_list = viewing_user.getDocList();
+			for (var i = 0; i < view_doc_list.length; i++) {
+				var new_doc_head = document.createElement('a');
+				new_doc_head.href = view_doc_list[i].getDocUrlToOpen();
+				/*ОБРЕЗАТЬ ТАЙТЛ КАК НАдО*!!!!!!!!!!!!!!*/
+				new_doc_head.innerHTML = view_doc_list[i].getDocTitle();
+				new_elementsList.push(new_doc_head);
+				if (view_doc_list[i].getIsMainDoc() === false || view_doc_list[i].getIsMainDoc() === "false") { new_doc_head.setAttribute('isnotmaindoc', ''); }
+			}
+		} catch { console.log(error); console.log("Не удалось получить список пользовательских документов для формирования пользовательского меню"); }
+
+		/*здесь парсинг доков 111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+		new_elementsList.forEach(function callback(element, index, array) {
+			var new_navigation__user_item = document.createElement('li');
+			new_navigation__user_item.className = "user_nav__item";
+			new_navigation__user_item.appendChild(element);
+			new_elementsList.splice(index, 1);
+			new_elementsList.unshift(new_navigation__user_item);
+			/*element = new_navigation__user_item;*/ /*при таком присвоении ничего не работает*/
 		});
-				
-		main_header_navigation__user_item_1.appendChild(new_main_header_navigation__user_logout);
-
-		var main_header_navigation__user_item_2 = document.createElement('li');
-		main_header_navigation__user_item_2.className = "main-header-navigation__user-item";
-		var new_main_header_navigation__user_profile = document.createElement('a');
-		new_main_header_navigation__user_profile.href = "user.dirty.html";
-		new_main_header_navigation__user_profile.innerHTML = "Профиль (" + curr_user.getLogin() + ")";
-		main_header_navigation__user_item_2.appendChild(new_main_header_navigation__user_profile);
-
-		/*var new_main_header_navigation__user_itemsList = liшки...
-		в navigation (нет у админа с модером) (можно админу с модером потом добавить парсинг с текущего юзера из общего массива)
-    парсится с user_itemsList if (isMainDoc = true) {
-        .innerHTML = .title;
-        .href = .url_to_open;
-        .setAttribute('index', i);
-    }*/
-
 		/* /create loged in elements */
 
-		/* delete loged out elements */
-		var main_header_navigation__user_list = document.querySelector(".main-header-navigation__user-list");
-		main_header_navigation__user_itemsList = main_header_navigation__user_list.querySelectorAll('li');
-		main_header_navigation__user_itemsList = Array.prototype.slice.call(main_header_navigation__user_itemsList);
-		for (var i = 0; i < main_header_navigation__user_itemsList.length; i++) {
-			main_header_navigation__user_list.removeChild(main_header_navigation__user_itemsList[i]);
-		}
-		/* /delete loged out elements */
-
-		/* append loged in elements */
-		/*for (var i = 0; i < new_main_header_navigation__user_itemsList.length; i++) {
-			main_header_navigation__user_list.appendChild(new_main_header_navigation__user_itemsList[i]);
-		}*/ /*(нет у админа с модером) (можно админу с модером потом добавить парсинг с текущего юзера из общего массива)*/
-		main_header_navigation__user_list.appendChild(main_header_navigation__user_item_2);
-		main_header_navigation__user_list.appendChild(main_header_navigation__user_item_1);
-		/* /append loged in elements */
-		/* - /header-user-nav loged in - */
-
-		/* - main-nav loged in - */
 		try {
-			/* create loged in elements */
-			var dup_main_header_navigation__user_item_1 = main_header_navigation__user_item_1.cloneNode(true);
-			dup_main_header_navigation__user_item_1.className = "main-navigation__user-item";
-
-			dup_main_header_navigation__user_item_1.addEventListener("click", function function_name(event) {
-				event.preventDefault();
-				myLocalStorage.prototype.logOut();
-			});
-
-			var dup_main_header_navigation__user_item_2 = main_header_navigation__user_item_2.cloneNode(true);
-			dup_main_header_navigation__user_item_2.className = "main-navigation__user-item";
-			if (location.href.includes("user.dirty.html")) {
-				dup_main_header_navigation__user_item_2.classList.add("main-navigation__user-item--current");
+			/* - header-user-nav loged in - */
+			/* delete loged out elements */
+			var main_header_navigation__user_list = document.querySelector(".main-header-navigation__user-list");
+			var main_header_navigation__user_itemsList = main_header_navigation__user_list.querySelectorAll('li');
+			main_header_navigation__user_itemsList = Array.prototype.slice.call(main_header_navigation__user_itemsList);
+			for (var i = 0; i < main_header_navigation__user_itemsList.length; i++) {
+				main_header_navigation__user_list.removeChild(main_header_navigation__user_itemsList[i]);
 			}
+			/* /delete loged out elements */
 
-			/* /create loged in elements */
+			/* append loged in elements */
+			new_elementsList.forEach(function callback(element, index, array) {
+				if (!element.firstChild.hasAttribute("isnotmaindoc")) {
+					var dup = element.cloneNode(true);
+					if (location.href.includes(dup.firstChild.href)) {/*ЕСЛИ ССЫЛКА НЕ ДОКОВСКАЯ, ЕСЛИ ДОКОВСКАЯ, ТО ПРОВЕРЯТЬ, ИФ ДОКТАЙТЛ КОНТЕЙНС КУСОК, ВЫРЕЗАННЫЙ В МЕНЮ*/
+						dup.firstChild.removeAttribute("href");
+					}
+					if (dup.firstChild.classList.contains("user_logout_but")) {
+						dup.addEventListener("click", function function_name(event) {
+							event.preventDefault();
+							myLocalStorage.prototype.logOut();
+						});
+					}
+					main_header_navigation__user_list.appendChild(dup);
+				}
+			});
+			/* /append loged in elements */
+			/* - /header-user-nav loged in - */
+		} catch (error) { console.log("header-user-nav loged in works not"); }
 
+		try {
+			/* - main-user-nav loged in - */
 			/* delete loged out elements */
 			var main_navigation__user_list = document.querySelector(".main-navigation__user-list");
-			main_navigation__user_itemsList = main_navigation__user_list.querySelectorAll('li');
+			var main_navigation__user_itemsList = main_navigation__user_list.querySelectorAll('li');
 			main_navigation__user_itemsList = Array.prototype.slice.call(main_navigation__user_itemsList);
 			for (var i = 0; i < main_navigation__user_itemsList.length; i++) {
 				main_navigation__user_list.removeChild(main_navigation__user_itemsList[i]);
@@ -189,11 +198,81 @@ try {
 			/* /delete loged out elements */
 
 			/* append loged in elements */
-			main_navigation__user_list.appendChild(dup_main_header_navigation__user_item_2);
-			main_navigation__user_list.appendChild(dup_main_header_navigation__user_item_1);
+			new_elementsList.forEach(function callback(element, index, array) {
+				if (!element.firstChild.hasAttribute("isnotmaindoc")) {
+					var dup = element.cloneNode(true); /*если не продублировать, перенеется хедер-меню*/
+					if (location.href.includes(dup.firstChild.href)) {
+						dup.classList.add("current");
+						dup.firstChild.removeAttribute("href");
+					}
+					if (dup.firstChild.classList.contains("user_logout_but")) {
+						dup.addEventListener("click", function function_name(event) {
+							event.preventDefault();
+							myLocalStorage.prototype.logOut();
+						});
+					}
+					main_navigation__user_list.appendChild(dup);
+				}
+			});
 			/* /append loged in elements */
-		} catch { }
-		/* - /main-nav loged in - */
+			/* - /main-user-nav loged in - */
+		} catch (error) { console.log("main-user-nav loged in works not"); }
+
+		if (location.href.includes("map.dirty.html") > 0) {
+			try {
+				/* - map loged in - */
+				/* delete loged out elements */
+				var map_of_site__user_nav = document.querySelector(".map-of-site .user_nav");
+				var map_of_site__user_nav_itemsList = map_of_site__user_nav.querySelectorAll('li');
+				map_of_site__user_nav_itemsList = Array.prototype.slice.call(map_of_site__user_nav_itemsList);
+				for (var i = 0; i < map_of_site__user_nav_itemsList.length; i++) {
+					map_of_site__user_nav.removeChild(map_of_site__user_nav_itemsList[i]);
+				}
+				/* /delete loged out elements */
+
+				/* append loged in elements */
+				new_elementsList.forEach(function callback(element, index, array) {
+					var dup = element.cloneNode(true); /*если не продублировать, перенеется хедер-меню*/
+					dup.classList.add("custom-li");
+					if (dup.firstChild.classList.contains("user_logout_but")) {
+						dup.addEventListener("click", function function_name(event) {
+							event.preventDefault();
+							myLocalStorage.prototype.logOut();
+						});
+					}
+					map_of_site__user_nav.appendChild(dup);
+				});
+				/* /append loged in elements */
+				/* - /map loged in - */
+			} catch (error) { console.log("map loged in works not"); }
+		}
+
+		if (location.href.includes("user.dirty.html") > 0) {
+			if (isUser === "true" || isUser === true) {
+				try { /*юзерский профиль*/
+					/* - map loged in - */
+					/* delete loged out elements */
+					var user_docs_list = document.querySelector(".user-documents .user_docs_list");
+					var user_docs_list_itemsList = user_docs_list.querySelectorAll('li');
+					user_docs_list_itemsList = Array.prototype.slice.call(user_docs_list_itemsList);
+					for (var i = 0; i < user_docs_list_itemsList.length; i++) {
+						user_docs_list.removeChild(user_docs_list_itemsList[i]);
+					}
+					/* /delete loged out elements */
+
+					/* append loged in elements */
+					new_elementsList.forEach(function callback(element, index, array) {
+						if (!element.firstChild.classList.contains("user_logout_but") && !element.firstChild.href.includes("user.dirty.html")) {
+							var dup = element.cloneNode(true); /*если не продублировать, перенеется хедер-меню*/
+							dup.classList.add("custom-li");
+							user_docs_list.appendChild(dup);
+						}
+					});
+					/* /append loged in elements */
+					/* - /map loged in - */
+				} catch (error) { console.log("map loged in works not"); }
+			}
+		}
 	}
 
 	if (isLoginDone !== "true") {
@@ -201,7 +280,7 @@ try {
 	} else {
 		changeUserMenuLogedIn();
 	}
-} catch { console.log("Log in works not"); }
+/*} catch (error) { console.log("Log in works not"); }*/
 /* ------ /log in ------ */
 
 /* ------ slider ------ */
@@ -329,7 +408,7 @@ try {
 			}
 		});
 	});
-} catch { console.log("Slider works not"); }
+} catch (error) { console.log("Slider works not"); }
 /* ------ /slider ------ */
 
 /* ------ register ------ */
@@ -414,7 +493,7 @@ if (location.href.includes("register.dirty.html") > 0) {
 				register__login.classList.add("bad-input");
 				register__login.focus();
 			}
-			if (!register__mail.value) {
+			if (!register__mail.value && !Server.prototype.isUnitByMail(register__mail.value)) {
 				event.preventDefault();
 				console.log(register__mail.value);
 				console.log("Введите корректный адрес электронной почты");
@@ -430,17 +509,18 @@ if (location.href.includes("register.dirty.html") > 0) {
 				var temp_name = register__name.value;
 				var temp_firstname = register__firstname.value;
 
-				new Unit(temp_mail, temp_login, temp_password, temp_surname, temp_name, temp_firstname);
+				Server.prototype.registerNewUnit(temp_mail, temp_login, temp_password, temp_surname, temp_name, temp_firstname);
 
 				document.querySelector(".register").classList.add("visually-hidden");
 				document.querySelector(".register-from-mail").classList.remove("visually-hidden");
+				document.querySelector(".register-from-mail__submit").focus();
 				document.querySelector(".register-from-mail__submit").addEventListener("click", function function_name(event) {
 					Server.prototype.logInCurrUnit(temp_login, temp_password);
 				});
 			}
 		});
 
-	} catch {console.log("Register works not");}
+	} catch (error) {console.log("Register works not");}
 }
 /* ------ /register ------ */
 
@@ -475,12 +555,9 @@ if (location.href.includes("restore.dirty.html") > 0) {
 				restore_letter__mail.classList.add("bad-input");
 				restore_letter__mail.focus();
 			} else if (Server.prototype.isUnitByMail(restore_letter__mail.value)) {
-				console.log(curr_user);
-				Server.prototype.logInCurrUnit(curr_user.getLogin(), curr_user.getPassword());
 				restore__letter.classList.add("visually-hidden");
 				restore__from_mail.classList.remove("visually-hidden");
 				restore_from_mail__submit.addEventListener("click", function function_name(event) {
-
 					restore__from_mail.classList.add("visually-hidden");
 					restore__new_password.classList.remove("visually-hidden");
 					restore_new_password__password.focus();
@@ -507,23 +584,22 @@ if (location.href.includes("restore.dirty.html") > 0) {
 							restore_new_password__password.focus();
 						}
 						if (restore_new_password__password_repeat.value && restore_new_password__password.value) {
-							curr_user.setPassword(restore_new_password__password.value);
-							Server.prototype.synchronizeAllData();
-							Server.prototype.logInCurrUnit(curr_user.getLogin(), curr_user.getPassword());
-							console.log(isLoginDone);
-							setTimeout(function() { location.href = "index.dirty.html";
-							}, 2000);
+							Server.prototype.setNewUnitPassByMail(restore_letter__mail.value, restore_new_password__password.value);
 						}
 					});
 				});
-			} else {restore_letter__message_wrong.classList.remove("visually-hidden");}
+			} else {
+				restore_letter__message_wrong.classList.remove("visually-hidden");
+				restore_letter__mail.classList.add("bad-input");
+				restore_letter__mail.focus();
+			}
 		});
-	/*} catch {console.log("Restore works not");}*/
+	/*} catch (error) {console.log("Restore works not");}*/
 }
 /* ------ /restore ------ */
 
 /* ------ user--moder ------ */
-if (location.href.includes("restore.dirty.html") > 0) {
+if (location.href.includes("user--moder.dirty.html") > 0) {
 	try {
 		var user__moder__markList = document.querySelectorAll(".user--moder__mark");
 		var user__moder__marks_conteiner = null;
@@ -549,7 +625,7 @@ if (location.href.includes("restore.dirty.html") > 0) {
 					user__moder__marks_conteiner.appendChild(newButton);
 					newButton.addEventListener("click", user__moder__mark_event);
 				}
-			} catch { console.log("Error by mark__planned"); }
+			} catch (error) { console.log("Error by mark__planned"); }
 			try {
 				mark__in_process = user__moder__marks_conteiner.querySelector(".mark__in-process");
 				if (!mark__in_process) {
@@ -562,7 +638,7 @@ if (location.href.includes("restore.dirty.html") > 0) {
 					user__moder__marks_conteiner.appendChild(newButton);
 					newButton.addEventListener("click", user__moder__mark_event);
 				}
-			} catch { console.log("Error by mark__in-process"); }
+			} catch (error) { console.log("Error by mark__in-process"); }
 			try {
 				mark__done = user__moder__marks_conteiner.querySelector(".mark__done");
 				if (!mark__done) {
@@ -575,7 +651,7 @@ if (location.href.includes("restore.dirty.html") > 0) {
 					user__moder__marks_conteiner.appendChild(newButton);
 					newButton.addEventListener("click", user__moder__mark_event);
 				}
-			} catch { console.log("Error by mark__done"); }
+			} catch (error) { console.log("Error by mark__done"); }
 			if (!anyNodeIsCreated) {
 				if (curr_event.target.closest(".user--moder__mark") != mark__planned) {user__moder__marks_conteiner.removeChild(mark__planned);}
 				if (curr_event.target.closest(".user--moder__mark") != mark__in_process) {user__moder__marks_conteiner.removeChild(mark__in_process);}
@@ -585,7 +661,7 @@ if (location.href.includes("restore.dirty.html") > 0) {
 
 		for (var i = 0; i < user__moder__markList.length; i++) {
 			user__moder__markList.item(i).addEventListener("click", function function_name(event) { user__moder__mark_event(event); }); }
-	} catch {console.log("User--moder works not");}
+	} catch (error) {console.log("User--moder works not");}
 }
 /* ------ /user--moder ------ */
 
@@ -611,7 +687,7 @@ try {
 		modal_overlay.classList.add("visually-hidden");
 		try {
 			evaluation_with_tools_wrapper.classList.remove("evaluation-with-tools-wrapper--full-screen");
-		} catch {}
+		} catch (error) {}
 	});
 	/* /full-screen */
 
@@ -683,7 +759,7 @@ try {
 					if (element.offsetTop < 0 || element.offsetLeft < 0 || element.offsetTop > element.parentNode.getBoundingClientRect().height || element.offsetLeft > element.parentNode.getBoundingClientRect().width) {
 						element.style.backgroundColor = "red";
 					} else { element.style.backgroundColor = "#f39c12"; }
-				} catch {"catch by element deleting-backgroundColor"};
+				} catch (error) {"catch by element deleting-backgroundColor"};
 				function model_item_mark_mouse_up(event2) {
 					event2.preventDefault();
 					element.removeEventListener("mousemove", model_item_mark_mouse_move);
@@ -692,7 +768,7 @@ try {
 						if (element.offsetTop < 0 || element.offsetLeft < 0 || element.offsetTop > element.parentNode.getBoundingClientRect().height || element.offsetLeft > element.parentNode.getBoundingClientRect().width) {
 							element.parentNode.removeChild(element);
 						}
-					} catch {"catch by element deleting"};
+					} catch (error) {"catch by element deleting"};
 				}
 				document.addEventListener("mouseup", model_item_mark_mouse_up);
 			}
@@ -840,7 +916,7 @@ try {
 		if (event_row.querySelector("td.td-with-new-row-button")) {
 			key_row_paste_before_me = event_row;
 		} else {
-			try { key_row_paste_before_me = event_row.nextElementSibling; } catch {}
+			try { key_row_paste_before_me = event_row.nextElementSibling; } catch (error) {}
 		}
 
 		var exmpl_row_tdsList = exmpl_row.querySelectorAll("td");
@@ -1032,7 +1108,7 @@ try {
 						new_td_editing_conteinerIsDone = false;
 	/*					td_with_editing_conteiner_at_the_moment.removeEventListener("blur", td_editing_conteinerEvent_reset);
 	*/					document.removeEventListener("mousedown", edit_td_mousedown);
-					} catch {}
+					} catch (error) {}
 				}
 			}
 
@@ -1059,7 +1135,7 @@ try {
 					event.preventDefault();
 					try {
 						event.target.closest(".chip__mark").parentNode.removeChild(event.target.closest(".chip__mark"));
-					} catch {}
+					} catch (error) {}
 				}
 				document.querySelectorAll(".td-chips-conteiner .chip__mark").forEach(function callback(element, index, array) {
 					element.addEventListener("dblclick", chip__markEvent);
@@ -1275,7 +1351,7 @@ try {
 		});
 	});
 	/* /evaluation__select */
-} catch { console.log("Evaluation works not"); }
+} catch (error) { console.log("Evaluation works not"); }
 /* ------ /evaluation ------ */
 
 /* ------ order ------ */
@@ -1473,9 +1549,21 @@ if (location.href.includes("order.dirty.html") > 0) {
 			add_new_tempates_item();
 		});
 		/* -- /map-of-company__choose-conteiner --*/
-	} catch { console.log("Order works not"); }
+	} catch (error) { console.log("Order works not"); }
 }
 /* ------ /order ------ */
+
+/* ------ user-doc-main ------ */
+if (location.href.includes("user-doc-main.dirty.html") > 0) {
+	try {
+		if (!viewing_doc) { if (viewing_user) { console.log("Сервис готов для работы с Вашими документами. Вы можете открыть нужный - через пользовательское меню или Ваш профиль");
+			} else { /* если переход совершен невесть откуда, если вход выполнен, то сказать ему, чтоб перешел как надо */
+				/*body...*/
+			}
+		}
+	} catch (error) {console.log("User-doc-main works not");}
+}
+/* ------ /user-doc-main ------ */
 
 /*после внесения новых шаблонов, названий, опасностей, работ, прерлагается внесение новых данных админу в профиле в раскрывающемся пункте списка рокументов юзера пор названием предложения к дефолтным вариантам*/
 /*сделать в ордер, как в профиле рерактируемые названия цехов в модели*/
